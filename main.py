@@ -25,7 +25,7 @@ def generate_docx(payload: GenerateRequest):
     try:
         # Step 2: Load and render template
         doc = DocxTemplate(TEMPLATE_PATH)
-        doc.render(payload)
+        doc.render(payload.context)
         # doc.save("Ganesh_Gouru_Resume_Filled.docx")
         # Step 3: Save to in-memory stream
         buffer = BytesIO()
