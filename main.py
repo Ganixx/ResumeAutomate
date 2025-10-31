@@ -37,7 +37,7 @@ def generate_docx(payload: GenerateRequest):
 
         # Step 5: Return response
         return GenerateResponse(
-            filename="Ganesh_Gouru_Resume_Filled.docx",
+            filename="Ganesh_Gouru_Resume.docx",
             docx_b64=docx_b64
         )
 
