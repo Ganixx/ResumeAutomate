@@ -8,7 +8,7 @@ import re
 
 app = FastAPI()
 
-TEMPLATE_PATH = "./Full_Stack_Template.docx"
+
 
 class GenerateRequest(BaseModel):
     context: dict
@@ -87,13 +87,14 @@ def process_context_for_richtext(context_data: dict) -> dict:
     return processed_context
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-@app.post("/generate-docx", response_model=GenerateResponse)
-def generate_docx(payload: GenerateRequest):
-    if not os.path.exists(TEMPLATE_PATH):
-        raise HTTPException(status_code=404, detail="Template file not found")
+@app.post("/generate-docx/{template_path}", response_model=GenerateResponse)
+def generate_docx(payload: GenerateRequest, template_path: str):
+    template_path = f"./{template_path}".strip() + ".docx"
+    if not os.path.exists(template_path):
+        raise HTTPException(status_code=404, detail=f"Template file not found: {template_path}")
 
     try:
-        doc = DocxTemplate(TEMPLATE_PATH)
+        doc = DocxTemplate(template_path)
         
         # We must process the *entire* context object
         final_context = process_context_for_richtext(payload.context)
