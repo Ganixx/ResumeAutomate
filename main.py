@@ -35,7 +35,7 @@ def attempt_to_parse_markdown(text_value: str) -> RichText:
     # If no valid pairs are found, return the *entire* string
     # as a single, plain RichText object.
     if not matches:
-        rt.add(text_value)
+        rt.add(text_value, font='Calibri', size=24)
         return rt
         
     # If we find matches, build the RichText object
